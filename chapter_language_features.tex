@@ -1,12 +1,21 @@
 
-
 \sektion{Language Features}
-\subsection{Null Handling}
+
+\begin{frame}[fragile] \frametitle{Basic Syntax}
+\begin{lstlisting}
+var x = 42 // semicolon is optional
+val y = 42 // immutabile values
+\end{lstlisting}
+\end{frame}
+
+
 \begin{frame}[fragile]
 	\frametitle{Null Handling}
 \begin{lstlisting}
 val foo: String? = "bar"
-val length = foo?.length
+val x = 42
+
+val length = foo?.length // type is Int?
 if (foo != null) {
   val length = foo.length
 }
@@ -14,7 +23,6 @@ if (foo != null) {
 \end{frame}
 
 
-\subsection{Further Features}
 \frame{\frametitle{Further Features}
 \begin{itemize}
 	\item Import as

@@ -10,7 +10,16 @@
 \date{\today} 
 
 
-\frame{\titlepage} 
+% http://tex.stackexchange.com/questions/44983/beamer-removing-headline-and-its-space-on-a-single-frame-for-plan-but-keepin
+{
+\makeatletter
+    \setbeamertemplate{headline}[default]
+    \def\beamer@entrycode{\vspace*{-\headheight}}
+\makeatother
+\frame{\titlepage}
+}
+
+
 \frame{\frametitle{Table of contents}\tableofcontents}
 
 \input{chapter_introduction}
