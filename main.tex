@@ -1,0 +1,80 @@
+
+\documentclass{beamer}
+
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+
+% http://tex.stackexchange.com/questions/28229/extend-a-language-with-additional-keywords
+\lstset{language=Java}
+\lstset{
+ morekeywords={val, var}
+}
+\lstset{%
+    backgroundcolor=\color{yellow!20},%
+%    basicstyle=\small\ttfamily,%
+    numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,%
+    }%
+%\lstset{emph={%  
+%    val, var%
+%    },emphstyle={\color{red}\bfseries\underbar}%
+%}%
+
+\begin{document}
+\title{Kotlin Vienna 101}   
+\author{Christoph (Leiter $\vert$ Pickl)} 
+\date{\today} 
+
+
+\frame{\titlepage} 
+
+\frame{\frametitle{Table of contents}\tableofcontents} 
+
+
+\section{Introduction}
+
+\subsection{Hard Facts}
+\frame{\frametitle{Hard Facts} 
+	Each frame should have a title.
+	% the language, jetbrains, andrey
+}
+
+\subsection{Yet another JVM language}
+\frame{\frametitle{Yet another JVM language}
+	Each frame should have a title.
+	% compared to others
+}
+
+
+
+\section{Language Features}
+\subsection{Null Handling}
+\begin{frame}[fragile]
+	\frametitle{Null Handling}
+\begin{lstlisting}
+val foo: String? = "bar"
+val length = foo?.length
+if (foo != null) {
+  val length = foo.length
+}
+\end{lstlisting}
+\end{frame}
+
+
+\subsection{Further Features}
+\frame{\frametitle{Further Features}
+\begin{itemize}
+	\item Import as
+	\item etc
+\end{itemize}
+}
+
+\section{Summary}
+\frame{\frametitle{Summary} 
+\begin{itemize}
+	\item Its good
+	\item Yes it is
+\end{itemize}
+}
+
+\end{document}
