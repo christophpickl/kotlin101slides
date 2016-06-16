@@ -1,0 +1,34 @@
+
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+
+
+\newcommand\sektion[1]{
+  \section{#1}
+  \frame{
+    #1 % TODO make it fat, big, centered!
+  }
+}
+
+% LISTING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% http://tex.stackexchange.com/questions/28229/extend-a-language-with-additional-keywords
+\lstset{language=Java}
+\lstset{
+ morekeywords={val, var}
+}
+\lstset{%
+    backgroundcolor=\color{yellow!20},%
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    commentstyle=\color{green}\ttfamily,
+%    basicstyle=\small\ttfamily,%
+    numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,%
+    }%
+%\lstset{emph={%  
+%    val, var%
+%    },emphstyle={\color{red}\bfseries\underbar}%
+%}%
