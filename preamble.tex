@@ -14,17 +14,9 @@
   \usetheme{Rochester}
   \usecolortheme{seagull}
   \setbeamercolor*{frametitle}{fg=white,bg=kotlinBgBright}
-  %\setbeamercolor{section in toc}{fg = red}
-  \setbeamercolor{section number projected}{bg=white,fg=white} % disable hack ;)
-%  \setbeamercolor{structure}{fg=beamer@blendedblue}
-%  \definecolor{beamer@blendedblue}{rgb}{0.137,0.466,0.741}
-%  \setbeamerfont{title}{family=\rm}
 }
 % get rid of navigation symbols at the bottom
 \setbeamertemplate{navigation symbols}{}
-
-% disable top navigation bar
-%\setbeamertemplate{headline}{}
 
 
 % PACKAGES
@@ -55,13 +47,8 @@
   \section{#1}
 % http://tex.stackexchange.com/questions/44983/beamer-removing-headline-and-its-space-on-a-single-frame-for-plan-but-keepin
 {
-%\makeatletter
-%    \setbeamertemplate{headline}[default]
-%    \def\beamer@entrycode{\vspace*{-\headheight}}
-%\makeatother
 \setbeamercolor{frametitle}{bg=slidesBgDark} {
 \setbeamercolor{background canvas}{bg=slidesBgDark} {
-%\setbeamertemplate{headline}{}
   \frame{
     \textbf{\huge\textcolor{white}{#1}}
     \noindent\makebox[\linewidth]{\textcolor{kotlinBgBright}{\rule{\paperwidth}{1.4pt}}} % http://tex.stackexchange.com/questions/88502/how-to-change-the-shaded-color-of-the-rule-command
@@ -95,7 +82,10 @@
     commentstyle=\color{IJ_comment}\ttfamily,
 % NO! as java vs kotlin issue :( identifierstyle=\color{IJ_identifier}\ttfamily,
     numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,%
-    }%
+    framexleftmargin=12pt,
+}%
+%\lstset{framesep=10pt}
+%\lstset{xleftmargin=10pt,xrightmargin=10pt}
 %\lstset{emph={%  
 %    val, var%
 %    },emphstyle={\color{red}\bfseries\underbar}%

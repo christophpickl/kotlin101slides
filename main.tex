@@ -9,18 +9,22 @@
 \author{Christoph (Leiter $\vert$ Pickl)} 
 \date{\today} 
 
-
+\section{Kotlin 101}
 % http://tex.stackexchange.com/questions/44983/beamer-removing-headline-and-its-space-on-a-single-frame-for-plan-but-keepin
 {
-\makeatletter
-    \setbeamertemplate{headline}[default]
-    \def\beamer@entrycode{\vspace*{-\headheight}}
-\makeatother
-\frame{\titlepage}
+\setbeamercolor{frametitle}{bg=slidesBgDark} {
+\setbeamercolor{background canvas}{bg=slidesBgDark} {
+  \frame{
+    \includegraphics[height=0.6cm]{kotlin_logo_transparent}\textbf{\Huge\textcolor{white}{otlin 101}}
+    \noindent\makebox[\linewidth]{\textcolor{kotlinBgBright}{\rule{\paperwidth}{1.4pt}}} % http://tex.stackexchange.com/questions/88502/how-to-change-the-shaded-color-of-the-rule-command
+    \vspace{2.0pt} \\
+    \textbf{\large{\textcolor{white}{Christoph (Leiter $\vert$ Pickl)}}} \\
+    \textbf{\footnotesize{\textcolor{white}{Vienna, Austria -- June 20, 2016}}}
+  }
+}
+}
 }
 
-
-\frame{\frametitle{Table of contents}\tableofcontents}
 
 \input{chapter_introduction}
 \input{chapter_language_features}
