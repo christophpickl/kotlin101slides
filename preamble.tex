@@ -9,9 +9,14 @@
 
 
 % https://www.hartwork.org/beamer-theme-matrix/
-\usetheme{Rochester}
-\usecolortheme{seagull}
-
+\mode<presentation>
+{
+  \usetheme{Rochester}
+  \usecolortheme{seagull}
+  \setbeamercolor*{frametitle}{fg=white,bg=kotlinBgBright}
+  %\setbeamercolor{structure}{fg=beamer@blendedblue}
+  %\definecolor{beamer@blendedblue}{rgb}{0.137,0.466,0.741}
+}
 % get rid of navigation symbols at the bottom
 \setbeamertemplate{navigation symbols}{}
 
@@ -35,22 +40,32 @@
 % CUSTOM COMMANDS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\makeatletter
+    \newenvironment{withoutheadline}{
+        \setbeamertemplate{headline}[default]
+        \def\beamer@entrycode{\vspace*{-\headheight}}
+    }{}
+\makeatother
+
+
 \newcommand\sektion[1]{
   \section{#1}
 % http://tex.stackexchange.com/questions/44983/beamer-removing-headline-and-its-space-on-a-single-frame-for-plan-but-keepin
 {
-\makeatletter
-    \setbeamertemplate{headline}[default]
-    \def\beamer@entrycode{\vspace*{-\headheight}}
-\makeatother
+%\makeatletter
+%    \setbeamertemplate{headline}[default]
+%    \def\beamer@entrycode{\vspace*{-\headheight}}
+%\makeatother
+\setbeamercolor{frametitle}{bg=slidesBgDark} {
 \setbeamercolor{background canvas}{bg=slidesBgDark} {
+%\setbeamertemplate{headline}{}
   \frame{
-    \textbf{\huge{#1}}
+    \textbf{\huge\textcolor{white}{#1}}
     \noindent\makebox[\linewidth]{\textcolor{kotlinBgBright}{\rule{\paperwidth}{1.4pt}}} % http://tex.stackexchange.com/questions/88502/how-to-change-the-shaded-color-of-the-rule-command
-    %\noindent\textcolor{kotlinBgBright}{\rule{\paperwidth}{1.5pt}}
-    %\noindent\colorbox{kotlinBgBright}{\makebox[\width][s]{\rule{\paperwidth}{1.0pt}}}
-  }
-}}}
+  }}
+}
+}
+}
 
 % LISTING
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
