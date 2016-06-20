@@ -1,11 +1,16 @@
 
+% THEME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\definecolor{kotlinBgDark}{RGB}{20,52,74}
+\definecolor{kotlinBgBright}{RGB}{51,109,146}
+\definecolor{slidesBgDark}{RGB}{32,39,41}
+
+
 % https://www.hartwork.org/beamer-theme-matrix/
 \usetheme{Rochester}
 \usecolortheme{seagull}
-
-\usepackage{color}
-\usepackage{xcolor}
-\usepackage{listings}
 
 % get rid of navigation symbols at the bottom
 \setbeamertemplate{navigation symbols}{}
@@ -13,6 +18,22 @@
 % disable top navigation bar
 %\setbeamertemplate{headline}{}
 
+
+% PACKAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+
+
+% CUSTOM COMMANDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand\sektion[1]{
   \section{#1}
@@ -22,11 +43,14 @@
     \setbeamertemplate{headline}[default]
     \def\beamer@entrycode{\vspace*{-\headheight}}
 \makeatother
+\setbeamercolor{background canvas}{bg=slidesBgDark} {
   \frame{
-    \center{\textbf{\Huge{#1}}}
+    \textbf{\huge{#1}}
+    \noindent\makebox[\linewidth]{\textcolor{kotlinBgBright}{\rule{\paperwidth}{1.4pt}}} % http://tex.stackexchange.com/questions/88502/how-to-change-the-shaded-color-of-the-rule-command
+    %\noindent\textcolor{kotlinBgBright}{\rule{\paperwidth}{1.5pt}}
+    %\noindent\colorbox{kotlinBgBright}{\makebox[\width][s]{\rule{\paperwidth}{1.0pt}}}
   }
-}
-}
+}}}
 
 % LISTING
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -36,12 +60,13 @@
 \definecolor{IJ_keyword}{RGB}{204,120,50}
 \definecolor{IJ_string}{RGB}{106,135,89}
 \definecolor{IJ_comment}{RGB}{128,128,128}
+\definecolor{IJ_identifier}{RGB}{255,198,109}
 
 % https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
 % http://tex.stackexchange.com/questions/28229/extend-a-language-with-additional-keywords
 \lstset{language=Java}
 \lstset{
- morekeywords={val, var, get, set}
+ morekeywords={if, else, fun, val, var, get, set}
 }
 \lstset{%
     backgroundcolor=\color{IJ_background},%
@@ -50,6 +75,7 @@
     keywordstyle=\color{IJ_keyword}\ttfamily,
     stringstyle=\color{IJ_string}\ttfamily,
     commentstyle=\color{IJ_comment}\ttfamily,
+% NO! as java vs kotlin issue :( identifierstyle=\color{IJ_identifier}\ttfamily,
     numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,%
     }%
 %\lstset{emph={%  
