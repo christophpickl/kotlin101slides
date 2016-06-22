@@ -1,4 +1,19 @@
 
+% PACKAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{setspace}
+\usepackage{ulem} % strike through
+\usepackage{textpos}  % textblock
+
+
 % THEME
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -29,20 +44,12 @@
     urlcolor=kotlinBgBright,
 }
 
-\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{caption}{\raggedright\footnotesize{\insertcaption}\par}
 
-% PACKAGES
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\usepackage{color}
-\usepackage{xcolor}
-\usepackage{listings}
-\usepackage{hyperref}
-
-\usepackage{graphicx}
-\graphicspath{ {images/} }
-\usepackage{setspace}
-\usepackage{ulem} % strike through
+\addtobeamertemplate{frametitle}{}{%
+\begin{textblock*}{100mm}(\textwidth,-1cm)
+\includegraphics[height=0.6cm]{kotlin_logo_transparent}
+\end{textblock*}}
 
 
 % CUSTOM COMMANDS
