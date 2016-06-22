@@ -41,7 +41,8 @@
 
 \usepackage{graphicx}
 \graphicspath{ {images/} }
-
+\usepackage{setspace}
+\usepackage{ulem} % strike through
 
 
 % CUSTOM COMMANDS
@@ -54,6 +55,11 @@
     }{}
 \makeatother
 
+\newcommand{\quotes}[1]{
+  \linespread{1.3}\selectfont
+  ``\large{\textit{#1}}''\par\bigskip
+  \linespread{1}\selectfont % reset
+}
 
 \newcommand\sektion[1]{
   \section{#1}

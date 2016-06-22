@@ -1,18 +1,60 @@
-
 \sektion{Language Features}
 
-\begin{frame}[fragile] \frametitle{Basic Syntax}
-\begin{lstlisting}
-var x = 42 // semicolon is optional
-val y = 42 // immutabile values
 
-fun add(x: Int, y: Int) = x + y
+\frame{\frametitle{Agenda}
+\begin{enumerate}
+	\item Type inference
+	\item Function declaration
+	\item Lambdas
+	\item Null handling
+	\item Smart casts
+	\item Properties
+	\item Extension methods
+	\item  Named \& default parameters
+	\item Data classes
+	\item Collection API
+\end{enumerate}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Type inference}
+\begin{lstlisting}
+// mutable variable of type Int
+var x = 42
+
+// immutable value of type String
+val y = "foobar"
+
+// whatever the return type is
+val z = someFunction()
 \end{lstlisting}
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Function declaration}
+\begin{lstlisting}
+// global function with explicit return type
+fun add1(x: Int, y: Int): Int {
+  return x + y
+}
+
+// compact one-line syntax
+fun add2(x: Int, y: Int) = x + y
+\end{lstlisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Lambdas}
+\begin{lstlisting}
+TODO
+\end{lstlisting}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]
-	\frametitle{Null Handling}
+	\frametitle{Null handling}
 \begin{lstlisting}
 val foo: String? = "bar"
 val x = 42
@@ -25,11 +67,62 @@ if (foo != null) {
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Smart casts}
+\begin{lstlisting}
+TODO
+\end{lstlisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Properties}
+\begin{lstlisting}
+TODO
+\end{lstlisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Extension methods}
+\begin{lstlisting}
+TODO
+\end{lstlisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Named \& default parameters}
+\begin{lstlisting}
+TODO
+\end{lstlisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Data classes}
+\begin{lstlisting}
+TODO
+\end{lstlisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Collection API}
+\begin{lstlisting}
+TODO
+\end{lstlisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Further Features}
 \begin{itemize}
-	\item Properties
 	\item Delegation
 	\item String handling
+	\item Pattern matching
+	\item Sealed classes
+	\item \texttt{if} and \texttt{when} as an expression
 	\item Operator overloading
 	\item Rename imports
 	\item Backticks for escaping
