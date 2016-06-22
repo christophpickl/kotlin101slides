@@ -1,7 +1,7 @@
 \sektion{Language Features}
 
 
-\frame{\frametitle{Agenda}
+\frame{\frametitle{We'll have a look at \ldots}
 \begin{enumerate}
 	\item Type inference
 	\item Function declaration
@@ -44,6 +44,18 @@ fun add2(x: Int, y: Int) = x + y
 \end{lstlisting}
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Class declaration}
+\begin{lstlisting}
+// single ctor is initializing its fields
+class Greeter(private val prefix: String) {
+  // string interpolation, no concatenation
+  fun greet(name: String) =
+    "$prefix ${name}!"
+}
+\end{lstlisting}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Lambdas}
@@ -122,11 +134,11 @@ TODO
 	\item String handling
 	\item Pattern matching
 	\item Sealed classes
-	\item \texttt{if} and \texttt{when} as an expression
 	\item Operator overloading
+	\item == as equals
+	\item \texttt{if} and \texttt{when} as an expression
 	\item Rename imports
 	\item Backticks for escaping
-	\item == as equals
-	\item \ldots
+	\item \ldots and much much more \ldots
 \end{itemize}
 }
