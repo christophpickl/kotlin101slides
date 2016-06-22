@@ -18,6 +18,10 @@
 % get rid of navigation symbols at the bottom
 \setbeamertemplate{navigation symbols}{}
 
+\setbeamertemplate{footline}{
+    \hfill\scriptsize{\textcolor{kotlinBgBright}{\insertframenumber}}\hspace*{4pt}\vspace{4pt}
+}%[frame number]
+
 \hypersetup{
     colorlinks=true,
     linkcolor=kotlinBgBright,
@@ -55,6 +59,7 @@
   \section{#1}
 % http://tex.stackexchange.com/questions/44983/beamer-removing-headline-and-its-space-on-a-single-frame-for-plan-but-keepin
 {
+\setbeamertemplate{footline}{}
 \setbeamercolor{frametitle}{bg=slidesBgDark} {
 \setbeamercolor{background canvas}{bg=slidesBgDark} {
   \frame{
