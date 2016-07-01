@@ -1,0 +1,34 @@
+
+* use some memes ;)
+    * the typical b/w guys
+    * cats on the final slide
+
+* fragen stellen:
+    * wer kennt kotlin? wer schon mal verwendet?
+    * selbe fuer: scala, ceylon, C#, haskell&co?
+
+TODO
+=========================
+* side-by-side slide theme
+  - horizontal 50-50 mit anderem background, java vs kotlin
+  - luxury: mit animation den code (teile) einblenden lassen
+* evolution: POJOs -> lombok -> kotlin
+  - mutable pojos -> immutable + builder -> kotlin
+@SIT: java + kotlin mixen anhand von ebv projekt. bissi test, bzw auch ganze resource schreiben und mit java callen und vice versa
+  - demo mit intellij UND mit eclipse plugin!
+
+sIT requirements:
+=========================
+* Language fundamentals and concepts
+* Historic abstract
+* Strength of language and its libs (no boilerplate, wonderful UIs in a minute, clever handling of legacy code, ...)
+* Development Community (companies, foundations, VIPs, forums, ...)
+* Famous users (companies, projects, VIPs,...)
+* Relation to Java (or C# (smile)), advantages/potenatial vs. drawbacks/risks
+* Releation to s IT (already used in our own code, project leads or evaluations, used in 3rd party products and/or for customization,...)
+* Code example
+    * Demonstrate strength of language
+    * Demonstrate weakness
+    * Side-by-side example with Java (old example: http://wiki.imcplus.net:8080/wiki_devel/Wiki.jsp?page=GroovyKlemens)
+* Future outlook
+* Links/Ressources for beginners, good demonstrations etc.

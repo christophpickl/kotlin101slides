@@ -1,6 +1,5 @@
 \sektion{Language Features}
 
-
 \frame{\frametitle{We'll have a look at \ldots}
 \begin{enumerate}
 	\item Type inference
@@ -24,6 +23,9 @@ var x = 42
 
 // immutable value of type String
 val y = "foobar"
+
+// explicit type declaration
+val z: Double = 13.37
 
 // whatever the return type is
 val z = someFunction()
@@ -50,9 +52,24 @@ fun add2(x: Int, y: Int) = x + y
 \begin{lstlisting}
 // single ctor is initializing its fields
 class Greeter(private val prefix: String) {
+
   // string interpolation, no concatenation
   fun greet(name: String) =
     "$prefix ${name}!"
+}
+\end{lstlisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{A simple application}
+\begin{lstlisting}
+fun main(args: Array<String>) {
+  // no "new" keyword necessary
+  val greeter = Greeter("Hello")
+
+  // prints: "Hello sIT!"
+  println(greeter.greet("sIT"))
 }
 \end{lstlisting}
 \end{frame}
@@ -65,26 +82,138 @@ TODO
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]
-	\frametitle{Null handling}
+\begin{frame}[fragile] \frametitle{Null handling}
 \begin{lstlisting}
-val foo: String? = "bar"
-val x = 42
+val maybe: String? = ...
 
-val length = foo?.length // type is Int?
-if (foo != null) {
-  val length = foo.length
+maybe.length // COMPILE ERROR!!!
+
+maybe?.length // type is Int?
+maybe?.length ?: -1 // type is Int
+maybe!!.length // i dont f*cking care!
+
+if (maybe != null) {
+  maybe.length // smart cast to String
 }
 \end{lstlisting}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile] \frametitle{Smart casts}
-\begin{lstlisting}
-TODO
+
+\begin{frame}[fragile]
+\frametitle{Smart casts}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{center}
+  Java
+\end{center}
+\begin{lstlisting}[style=twosided]
+Object x = ...;
+if (x instanceof A) {
+  a = (A) x;
+  a.foo();
+} else if (x instanceof B) {
+  B b = (B) x;
+  b.bar();
+} else {
+  throw new Exception("Sad panda!");
+}
+\end{lstlisting}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{center}
+  Kotlin
+\end{center}
+\begin{lstlisting}[style=twosided]
+interface A { fun foo() }
+interface B { fun bar() }
+// ----------------------
+
+val x: Any = ...
+when (x) {
+  is A -> x.foo()
+  is B -> x.bar()
+  else -> throw Exception("Sad panda!")
+}
+\end{lstlisting}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile] \frametitle{Enum safety -- Java approach}
+\begin{lstlisting}[basicstyle=\color{IJ_text}\ttfamily\tiny]
+public enum SignMode {
+  TAC {
+    @Override public <T> T callback(Callback<T> callback) {
+      return callback.onTac(); }},
+  CARD_TAN {
+    @Override public <T> T callback(Callback<T> callback) {
+      return callback.onCardTan(); }},
+  TAN {
+    @Override public <T> T callback(Callback<T> callback) {
+      return callback.onTan(); }};
+
+  public abstract <T> T callback(Callback<T> callback);
+
+  public interface Callback<T> {
+    T onTac();
+    T onCardTan();
+    T onTan();
+  }
+}
+
 \end{lstlisting}
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Enum safety -- compared}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{center}
+  Java
+\end{center}
+\begin{lstlisting}[style=twosided]
+public int mode2int(SignMode mode) {
+  return mode.callback(
+  new Callback<Integer>() {
+  @Override public Integer onTac() {
+    return 1;
+  }
+  @Override public Integer onCardTan() {
+    return 2;
+  }
+  @Override public Integer onTan() {
+    return 3;
+  }
+  });
+}
+\end{lstlisting}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{center}
+  Kotlin
+\end{center}
+\begin{lstlisting}[style=twosided]
+enum class SignMode {
+  TAC, CARD_TAN, TAN
+}
+
+fun mode2int(mode: SignMode) =
+  when(mode) {
+    SignMode.TAC -> 1
+    SignMode.CARD_TAN -> 2
+    SignMode.TAN -> 3
+    // COMPILE ERROR if branch missing
+  }
+\end{lstlisting}
+\end{column}
+\end{columns}
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -112,10 +241,61 @@ TODO
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile] \frametitle{Data classes}
-\begin{lstlisting}
-TODO
+
+\begin{frame}[fragile]
+\frametitle{Data classes}
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{center}
+  Java
+\end{center}
+\begin{lstlisting}[style=twosided]
+public class Person {
+ private final String name;
+ private final int age;
+ public Person(String name, int age) {
+  this.name = name;
+  this.age = age;
+ }
+ public String getName() {
+  return name;
+ }
+ public int getAge() {
+  return age;
+ }
+ public boolean equals(Object other) {
+  ...
+ }
+ public int hashCode() {
+  ...
+ }
+ public String toString() {
+  ...
+ }
+}
 \end{lstlisting}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{center}
+  Kotlin
+\end{center}
+\begin{lstlisting}[style=twosided]
+data class Person(
+ val name: String,
+ val age: Int
+)
+
+// same as with lombok but better ;)
+
+// primary ctor deals with getters
+// and field initialisation
+
+// generates equals/hashCode/toString
+// and a copy function (no builders!)
+\end{lstlisting}
+\end{column}
+\end{columns}
 \end{frame}
 
 
@@ -132,8 +312,8 @@ TODO
 \begin{itemize}
 	\item Delegation
 	\item String handling
-	\item Pattern matching
 	\item Sealed classes
+	\item Pattern matching
 	\item Operator overloading
 	\item == as equals
 	\item \texttt{if} and \texttt{when} as an expression
