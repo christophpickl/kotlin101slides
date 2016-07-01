@@ -68,6 +68,17 @@
   \linespread{1}\selectfont % reset
 }
 
+\newcommand{\fullimage}[1]{
+\begin{withoutheadline}
+\frame{
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=10cm]{#1}
+\end{figure}
+}
+\end{withoutheadline}
+}
+
 \newcommand\sektion[1]{
   \section{#1}
 % http://tex.stackexchange.com/questions/44983/beamer-removing-headline-and-its-space-on-a-single-frame-for-plan-but-keepin
