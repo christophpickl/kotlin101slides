@@ -9,11 +9,7 @@
 
 TODO
 =========================
-* side-by-side slide theme
-  - horizontal 50-50 mit anderem background, java vs kotlin
-  - luxury: mit animation den code (teile) einblenden lassen
-* evolution: POJOs -> lombok -> kotlin
-  - mutable pojos -> immutable + builder -> kotlin
+* MINOR: animation in listings: http://tex.stackexchange.com/questions/8384/how-to-make-overlay-still-work-inside-lstlisting-environment
 @SIT: java + kotlin mixen anhand von ebv projekt. bissi test, bzw auch ganze resource schreiben und mit java callen und vice versa
   - demo mit intellij UND mit eclipse plugin!
 

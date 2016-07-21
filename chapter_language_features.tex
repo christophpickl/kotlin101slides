@@ -1,6 +1,6 @@
 \sektion{Language Features}
 
-\frame{\frametitle{We'll have a look at \ldots}
+\frame{\frametitle{We'll have a quick look at \ldots}
 \begin{enumerate}
 	\item Type inference
 	\item Function declaration
@@ -75,9 +75,32 @@ fun main(args: Array<String>) {
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile] \frametitle{Lambdas}
+\begin{frame}[fragile] \frametitle{Lambdas compared}
 \begin{lstlisting}
-TODO
+// java
+Stream.of(1, 2, 3).filter(i -> i % 2 == 0)
+  .collect(Collectors.toList());
+
+// kotlin
+listOf(1, 2, 3).filter { i -> i % 2 == 0 }
+// or even shorter:
+listOf(1, 2, 3).filter { it % 2 == 0 }
+\end{lstlisting}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Map function}
+\begin{lstlisting}
+fun <T, R> map(list: List<T>,
+    transform: (T) -> R): List<R> {
+  val result = arrayListOf<R>()
+  for (item in list)
+    result.add(transform(item))
+  return result
+}
+
+// invoke the function and pass a lambda
+map(listOf(1, 2, 3), { it -> it * 2 })
 \end{lstlisting}
 \end{frame}
 
@@ -219,19 +242,109 @@ fun mode2int(mode: SignMode) =
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile] \frametitle{Properties}
+
+\begin{frame}[fragile] \frametitle{Without Properties}
+\begin{lstlisting}[basicstyle=\color{IJ_text}\ttfamily\tiny]
+public class Account {
+    
+    private String id;
+    private int amount;
+
+    public Account(String id, int amount) {
+        this.id = id;
+        this.amount = amount;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public int getAmount() {
+        return amount;
+    }
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile] \frametitle{With Properties}
 \begin{lstlisting}
-TODO
+class Account {
+  var id: String? = null
+  var amount: Int = 0
+}
+
+// invoke getter/setter from java as usual
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile] \frametitle{Explicit Properties}
+\begin{lstlisting}
+class Account {
+  // ... id ...
+  var amount = 0
+    get() = field // backing field
+    set(value) {
+      if (value < 0) throw SomeException()
+        field = value
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile] \frametitle{Compact Properties}
+\begin{lstlisting}
+// primary ctor initializing properties
+class Account(
+  var id: String,
+  var amount: Int
+)
 \end{lstlisting}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile] \frametitle{Extension methods}
+\begin{frame}[fragile] \frametitle{Extension methods -- The Problem}
 \begin{lstlisting}
-TODO
+String x = " abc ";
+
+// we are used to call methods like this
+x.length();
+
+// but as String is final we do this:
+StringUtil.trim(" abc ");
+
+// how many StringUtils are out there?!
 \end{lstlisting}
 \end{frame}
+
+\begin{frame}[fragile] \frametitle{Extension methods -- The Solution}
+\begin{lstlisting}
+fun String.trim(): String {
+    // "this" refers to current string
+    ...
+}
+
+" abc ".trim()
+\end{lstlisting}
+\end{frame}
+
+
+\frame{\frametitle{Extension Methods}
+\begin{itemize}
+	\item Known from C\#, Smalltalk, Ruby (\textit{monkey patch}) and others
+	\item Add methods to yet compiled (final) classes
+	\item No syntactic \textbf{difference} between calling real vs extension
+	\item Actually simply creates \textbf{static methods} in background
+	\item Problem of \textbf{delocalization} solved, auto-completion works
+\end{itemize}
+
+\center{\textit{Extension methods certainly are not object-oriented!}}
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -302,7 +415,17 @@ data class Person(
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile] \frametitle{Collection API}
+
+
+\frame{\frametitle{Collection API}
+\begin{itemize}
+	\item Mutable vs immutable collections
+	\item create a map: \texttt{mapOf("a" to 1, "b" to 2)}
+	\item accessing a map: \texttt{map["a"]}
+\end{itemize}
+}
+
+\begin{frame}[fragile] \frametitle{Collection API Samples}
 \begin{lstlisting}
 TODO
 \end{lstlisting}
@@ -316,9 +439,10 @@ TODO
 	\item String handling
 	\item Sealed classes
 	\item Pattern matching
+	\item Reified generics
 	\item Operator overloading
+	\item \texttt{if}, \texttt{try} and \texttt{when} as expressions
 	\item == as equals
-	\item \texttt{if} and \texttt{when} as an expression
 	\item Rename imports
 	\item Backticks for escaping
 	\item \ldots and much much more \ldots
