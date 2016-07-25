@@ -3,13 +3,13 @@
 \frame{\frametitle{We'll have a quick look at \ldots}
 \begin{enumerate}
 	\item Type inference
-	\item Function declaration
+	\item Declarations
 	\item Lambdas
 	\item Null handling
 	\item Smart casts
 	\item Properties
 	\item Extension methods
-	\item  Named \& default parameters
+	\item  Named \& default arguments
 	\item Data classes
 	\item Collection API
 \end{enumerate}
@@ -43,6 +43,8 @@ fun add1(x: Int, y: Int): Int {
 
 // compact one-line syntax
 fun add2(x: Int, y: Int) = x + y
+
+// possiblity to mark it as an infix funct.
 \end{lstlisting}
 \end{frame}
 
@@ -57,6 +59,22 @@ class Greeter(private val prefix: String) {
   fun greet(name: String) =
     "$prefix ${name}!"
 }
+\end{lstlisting}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Object declaration}
+\begin{lstlisting}
+object ProperSingleton : SomeInterface {
+  fun greet() { println("Hello singleton.") }
+}
+
+// looks like a nasty static invocation
+ProperSingleton.greet()
+
+// pass an (the!) instance reference
+someMethod(ProperSingleton)
 \end{lstlisting}
 \end{frame}
 
@@ -105,6 +123,16 @@ map(listOf(1, 2, 3), { it -> it * 2 })
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{withoutheadline}
+\frame{
+\begin{figure}[h]
+  \centering
+  \includegraphics[height=8cm]{nullpointer}
+\end{figure}
+}
+\end{withoutheadline}
+
 \begin{frame}[fragile] \frametitle{Null handling}
 \begin{lstlisting}
 val maybe: String? = ...
@@ -121,8 +149,6 @@ if (maybe != null) {
 \end{lstlisting}
 \end{frame}
 
-
-\fullimage{its_beautiful}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -152,10 +178,6 @@ if (x instanceof A) {
   Kotlin
 \end{center}
 \begin{lstlisting}[style=twosided]
-interface A { fun foo() }
-interface B { fun bar() }
-// ----------------------
-
 val x: Any = ...
 when (x) {
   is A -> x.foo()
@@ -285,13 +307,13 @@ class Account {
 \begin{frame}[fragile] \frametitle{Explicit Properties}
 \begin{lstlisting}
 class Account {
-  // ... id ...
   var amount = 0
     get() = field // backing field
     set(value) {
       if (value < 0) throw SomeException()
         field = value
     }
+    // ...
 }
 \end{lstlisting}
 \end{frame}
@@ -303,6 +325,7 @@ class Account(
   var id: String,
   var amount: Int
 )
+// no need for curly braces
 \end{lstlisting}
 \end{frame}
 
@@ -310,33 +333,39 @@ class Account(
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Extension methods -- The Problem}
 \begin{lstlisting}
-String x = " abc ";
+String agent = "7";
 
-// we are used to call methods like this
-x.length();
+// we are used to call methods like this:
+agent.length();
 
 // but as String is final we do this:
-StringUtil.trim(" abc ");
+StringUtil.pad(agent, 3, "0");
 
-// how many StringUtils are out there?!
+// how many String/FileUtils are out there?!
 \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile] \frametitle{Extension methods -- The Solution}
 \begin{lstlisting}
-fun String.trim(): String {
-    // "this" refers to current string
-    ...
+fun String.pad(length: Int,
+    symbol: String): String {
+  // "this" refers to current string
+  ...
 }
+val agent = "7"
+agent.pad(3, "0") // auto-completion FTW!!!
 
-" abc ".trim()
+// nullable receiver transformation
+fun Money?.toDTO() =
+  if (this == null) null else MoneyDTO(this)
 \end{lstlisting}
 \end{frame}
 
+\fullimage{its_beautiful}
 
 \frame{\frametitle{Extension Methods}
 \begin{itemize}
-	\item Known from C\#, Smalltalk, Ruby (\textit{monkey patch}) and others
+	\item Known from C\#, Smalltalk, Ruby and others
 	\item Add methods to yet compiled (final) classes
 	\item No syntactic \textbf{difference} between calling real vs extension
 	\item Actually simply creates \textbf{static methods} in background
@@ -346,11 +375,34 @@ fun String.trim(): String {
 \center{\textit{Extension methods certainly are not object-oriented!}}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile] \frametitle{Default arguments}
+\begin{lstlisting}
+fun greet(
+    name: String,
+    prefix: String = "Hello")
+  = "$prefix, ${name}!"
+
+greet("sIT") // => "Hello, sIT!"
+greet("sIT", "Hi") => "Hi, sIT!"
+
+// no more overloaded methods + delegation!
+\end{lstlisting}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile] \frametitle{Named \& default parameters}
+\begin{frame}[fragile] \frametitle{Named arguments}
 \begin{lstlisting}
-TODO
+fun greet(
+    name: String,
+    prefix: String = "Hello",
+    suffix: String = "!")
+  { ... }
+
+// specify the argument name and
+// skip the "prefix" param (use default)
+greet(name = "sIT", suffix = ".")
 \end{lstlisting}
 \end{frame}
 
@@ -419,15 +471,28 @@ data class Person(
 
 \frame{\frametitle{Collection API}
 \begin{itemize}
-	\item Mutable vs immutable collections
-	\item create a map: \texttt{mapOf("a" to 1, "b" to 2)}
-	\item accessing a map: \texttt{map["a"]}
+	\item Collections designed properly! (im/mutability as in Scala)
+	\item Create a map: \texttt{mapOf("a" to 1, "b" to 2)}
+	\item Access a map: \texttt{map["a"]}
+	\item Many useful (functional) extension methods \ldots
 \end{itemize}
 }
 
 \begin{frame}[fragile] \frametitle{Collection API Samples}
 \begin{lstlisting}
-TODO
+// val list = listOf(1, 2, 3)
+val list = mutableListOf(1, 2, 3)
+list.add(42) // would not compile!
+list.requireNoNulls()
+list.first() // => 1
+list.firstOrNull { it > 10 } ?: -1
+if (list.none { it > 10 })
+  println("no big ones")
+list.toList() // returns immutable copy
+
+mapOf(1 to "a", 2 to "b", 3 to "a")
+  .values.distinct().toHashSet()
+
 \end{lstlisting}
 \end{frame}
 
