@@ -1,7 +1,7 @@
 \sektion{Language Features}
 
 \frame{\frametitle{We'll have a quick look at \ldots}
-\begin{enumerate}
+\begin{enumerate}[<+->]
 	\item Type inference
 	\item Declarations
 	\item Lambdas
@@ -17,43 +17,49 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Type inference}
+\pause
 \begin{lstlisting}
 // mutable variable of type Int
-var x = 42
+var a = 42|\pause|
 
 // immutable value of type String
-val y = "foobar"
+val b = "foobar"|\pause|
 
 // explicit type declaration
-val z: Double = 13.37
+val c: Double = 13.37|\pause|
 
 // whatever the return type is
-val z = someFunction()
+val d = someFunction()
 \end{lstlisting}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Function declaration}
+\pause
 \begin{lstlisting}
 // global function with explicit return type
 fun add1(x: Int, y: Int): Int {
   return x + y
-}
+}|\pause|
 
 // compact one-line syntax
-fun add2(x: Int, y: Int) = x + y
+fun add2(x: Int, y: Int) = x + y|\pause|
 
-// possiblity to mark it as an infix funct.
+// possiblity to mark it as infix function
+infix fun Int.add3(y: Int) = this + y
+// enables us to write:
+20.add3(22)
 \end{lstlisting}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Class declaration}
+\pause
 \begin{lstlisting}
-// single ctor is initializing its fields
-class Greeter(private val prefix: String) {
+// single ctor initializing a property
+class Greeter(private val prefix: String) {|\pause|
 
   // string interpolation, no concatenation
   fun greet(name: String) =
@@ -65,28 +71,37 @@ class Greeter(private val prefix: String) {
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Object declaration}
+\pause
 \begin{lstlisting}
-object ProperSingleton : SomeInterface {
-  fun greet() { println("Hello singleton.") }
-}
+// an object is a singleton done properly
+object Highlander|\pause| : SwordFighter {|\pause|
+  // mandatory 'override' keyword
+  override fun slash() { ... }
+}|\pause|
 
 // looks like a nasty static invocation
-ProperSingleton.greet()
+Highlander.slash()|\pause|
+
+// we only want to kill real sword fighters
+fun killHim(fighter: SwordFighter) { ... }|\pause|
 
 // pass an (the!) instance reference
-someMethod(ProperSingleton)
+killHim(Highlander)
 \end{lstlisting}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{A simple application}
+Kotlin is well known for being a \textbf{concise language}:\pause
 \begin{lstlisting}
-fun main(args: Array<String>) {
-  // no "new" keyword necessary
-  val greeter = Greeter("Hello")
+// no surrounding class necessary
+fun main(args: Array<String>) {|\pause|
 
-  // prints: "Hello sIT!"
+  // no 'new' keyword necessary
+  val greeter = Greeter("Hello")|\pause|
+
+  // no 'System.out' reference necessary
   println(greeter.greet("sIT"))
 }
 \end{lstlisting}
@@ -94,31 +109,36 @@ fun main(args: Array<String>) {
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Lambdas compared}
+\pause
 \begin{lstlisting}
-// java
+// with java 8:
 Stream.of(1, 2, 3).filter(i -> i % 2 == 0)
-  .collect(Collectors.toList());
+  .collect(Collectors.toList());|\pause|
 
-// kotlin
-listOf(1, 2, 3).filter { i -> i % 2 == 0 }
-// or even shorter:
+// with kotlin:
+listOf(1, 2, 3).filter { i -> i % 2 == 0 }|\pause|
+
+// or even shorter (groovy style):
 listOf(1, 2, 3).filter { it % 2 == 0 }
 \end{lstlisting}
+\pause
+\small{PS: If the last argument of a function is a function, it can be outside the paranthesis; if there are no other arguments, you can even omit them.}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Map function}
+\pause
 \begin{lstlisting}
-fun <T, R> map(list: List<T>,
-    transform: (T) -> R): List<R> {
+fun <T, R> map(list: List<T>,|\pause|
+    transform: (T) -> R): List<R> {|\pause|
   val result = arrayListOf<R>()
   for (item in list)
     result.add(transform(item))
   return result
-}
+}|\pause|
 
 // invoke the function and pass a lambda
-map(listOf(1, 2, 3), { it -> it * 2 })
+map(listOf(1, 2, 3), { it * 2 })
 \end{lstlisting}
 \end{frame}
 
@@ -134,14 +154,15 @@ map(listOf(1, 2, 3), { it -> it * 2 })
 \end{withoutheadline}
 
 \begin{frame}[fragile] \frametitle{Null handling}
+\pause
 \begin{lstlisting}
-val maybe: String? = ...
+// nullable types for better compile checks
+val maybe: String? = ...|\pause|
 
-maybe.length // COMPILE ERROR!!!
-
-maybe?.length // type is Int?
-maybe?.length ?: -1 // type is Int
-maybe!!.length // i dont f*cking care!
+maybe.length // COMPILE ERROR!!!|\pause|
+maybe?.length // type is Int?|\pause|
+maybe?.length ?: -1 // type is Int|\pause|
+maybe!!.length // i dont f*cking care!|\pause|
 
 if (maybe != null) {
   maybe.length // smart cast to String
@@ -154,35 +175,36 @@ if (maybe != null) {
 
 \begin{frame}[fragile]
 \frametitle{Smart casts}
+\pause
 \begin{columns}[t]
 \begin{column}{0.5\textwidth}
 \begin{center}
   Java
 \end{center}
 \begin{lstlisting}[style=twosided]
-Object x = ...;
+Object x = ...;|\pause|
 if (x instanceof A) {
   a = (A) x;
-  a.foo();
+  a.foo();|\pause|
 } else if (x instanceof B) {
   B b = (B) x;
-  b.bar();
+  b.bar();|\pause|
 } else {
   throw new Exception("Sad panda!");
-}
+}|\pause|
 \end{lstlisting}
-
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{center}
   Kotlin
 \end{center}
 \begin{lstlisting}[style=twosided]
-val x: Any = ...
+val x: Any = ...|\pause|
 when (x) {
-  is A -> x.foo()
-  is B -> x.bar()
+  is A -> x.foo()|\pause|
+  is B -> x.bar()|\pause|
   else -> throw Exception("Sad panda!")
+  // there are no checked exceptions :)
 }
 \end{lstlisting}
 \end{column}
@@ -191,9 +213,12 @@ when (x) {
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}[fragile] \frametitle{Enum safety -- Java approach}
+\begin{frame}[fragile] \frametitle{Enum safety -- Java setup}
+\pause
 \begin{lstlisting}[basicstyle=\color{IJ_text}\ttfamily\tiny]
-public enum SignMode {
+public enum SignMode {|\pause|
+
+  // define three different sign modes:
   TAC {
     @Override public <T> T callback(Callback<T> callback) {
       return callback.onTac(); }},
@@ -202,8 +227,9 @@ public enum SignMode {
       return callback.onCardTan(); }},
   TAN {
     @Override public <T> T callback(Callback<T> callback) {
-      return callback.onTan(); }};
+      return callback.onTan(); }};|\pause|
 
+  // get sure compiler can check all sign modes are handled:
   public abstract <T> T callback(Callback<T> callback);
 
   public interface Callback<T> {
@@ -217,14 +243,15 @@ public enum SignMode {
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Enum safety -- compared}
+\frametitle{Enum safety -- Compared}
+\pause
 \begin{columns}[t]
 \begin{column}{0.5\textwidth}
 \begin{center}
   Java
 \end{center}
 \begin{lstlisting}[style=twosided]
-public int mode2int(SignMode mode) {
+public int mode2int(SignMode mode) {|\pause|
   return mode.callback(
   new Callback<Integer>() {
   @Override public Integer onTac() {
@@ -240,6 +267,7 @@ public int mode2int(SignMode mode) {
 }
 \end{lstlisting}
 \end{column}
+\pause
 \begin{column}{0.5\textwidth}
 \begin{center}
   Kotlin
@@ -247,9 +275,9 @@ public int mode2int(SignMode mode) {
 \begin{lstlisting}[style=twosided]
 enum class SignMode {
   TAC, CARD_TAN, TAN
-}
+}|\pause|
 
-fun mode2int(mode: SignMode) =
+fun mode2int(mode: SignMode) =|\pause|
   when(mode) {
     SignMode.TAC -> 1
     SignMode.CARD_TAN -> 2
@@ -265,17 +293,18 @@ fun mode2int(mode: SignMode) =
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}[fragile] \frametitle{Without Properties}
+\begin{frame}[fragile] \frametitle{Pojo without Properties}
+\pause
 \begin{lstlisting}[basicstyle=\color{IJ_text}\ttfamily\tiny]
-public class Account {
+public class Account {|\pause|
     
     private String id;
-    private int amount;
+    private int amount;|\pause|
 
     public Account(String id, int amount) {
         this.id = id;
         this.amount = amount;
-    }
+    }|\pause|
 
     public String getId() {
         return id;
@@ -293,23 +322,28 @@ public class Account {
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile] \frametitle{With Properties}
+\begin{frame}[fragile] \frametitle{Pojo with Properties}
+\pause
 \begin{lstlisting}
-class Account {
+class Account|\pause| {
   var id: String? = null
   var amount: Int = 0
-}
+}|\pause|
 
+// usage sample:
+val account = Account()
+account.id = "asdf"
+account.amount = 100
 // invoke getter/setter from java as usual
 \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile] \frametitle{Explicit Properties}
 \begin{lstlisting}
-class Account {
-  var amount = 0
-    get() = field // backing field
-    set(value) {
+class Account|\pause| {
+  var amount = 0|\pause|
+    get() = field // backing field|\pause|
+    set(value) {|\pause|
       if (value < 0) throw SomeException()
         field = value
     }
@@ -319,9 +353,10 @@ class Account {
 \end{frame}
 
 \begin{frame}[fragile] \frametitle{Compact Properties}
+\pause
 \begin{lstlisting}
 // primary ctor initializing properties
-class Account(
+class Account|\pause|(
   var id: String,
   var amount: Int
 )
@@ -332,28 +367,31 @@ class Account(
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Extension methods -- The Problem}
+\pause
 \begin{lstlisting}
-String agent = "7";
+String agent = "7";|\pause|
 
 // we are used to call methods like this:
-agent.length();
+agent.length();|\pause|
 
 // but as String is final we do this:
 StringUtil.pad(agent, 3, "0");
-
-// how many String/FileUtils are out there?!
 \end{lstlisting}
+\pause
+How many Util classes are out there? A gazillion maybe?!
 \end{frame}
 
 \begin{frame}[fragile] \frametitle{Extension methods -- The Solution}
+\pause
 \begin{lstlisting}
-fun String.pad(length: Int,
+fun String.pad|\pause|(length: Int,
     symbol: String): String {
   // "this" refers to current string
   ...
-}
+}|\pause|
+
 val agent = "7"
-agent.pad(3, "0") // auto-completion FTW!!!
+agent.pad(3, "0") // auto-completion FTW!!!|\pause|
 
 // nullable receiver transformation
 fun Money?.toDTO() =
@@ -363,42 +401,45 @@ fun Money?.toDTO() =
 
 \fullimage{its_beautiful}
 
-\frame{\frametitle{Extension Methods}
-\begin{itemize}
+\frame{\frametitle{Extension Methods -- Remarks}
+\pause
+\begin{itemize}[<+->]
 	\item Known from C\#, Smalltalk, Ruby and others
 	\item Add methods to yet compiled (final) classes
 	\item No syntactic \textbf{difference} between calling real vs extension
 	\item Actually simply creates \textbf{static methods} in background
 	\item Problem of \textbf{delocalization} solved, auto-completion works
+	\item \textit{Extension methods certainly are not object-oriented!}
 \end{itemize}
-
-\center{\textit{Extension methods certainly are not object-oriented!}}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Default arguments}
+\pause
 \begin{lstlisting}
-fun greet(
-    name: String,
-    prefix: String = "Hello")
-  = "$prefix, ${name}!"
+fun greet(|\pause|
+    name: String,|\pause|
+    prefix: String = "Hello")|\pause|
+  = "$prefix, ${name}!"|\pause|
+
+greet("sIT", "Hi") => "Hi, sIT!"|\pause|
 
 greet("sIT") // => "Hello, sIT!"
-greet("sIT", "Hi") => "Hi, sIT!"
-
-// no more overloaded methods + delegation!
 \end{lstlisting}
+
+No more overloaded methods and delegation necessary!
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile] \frametitle{Named arguments}
+\pause
 \begin{lstlisting}
 fun greet(
     name: String,
     prefix: String = "Hello",
     suffix: String = "!")
-  { ... }
+  { ... }|\pause|
 
 // specify the argument name and
 // skip the "prefix" param (use default)
@@ -411,31 +452,32 @@ greet(name = "sIT", suffix = ".")
 
 \begin{frame}[fragile]
 \frametitle{Data classes}
+\pause
 \begin{columns}[t]
 \begin{column}{0.5\textwidth}
 \begin{center}
   Java
 \end{center}
 \begin{lstlisting}[style=twosided]
-public class Person {
+public class Person {|\pause|
  private final String name;
- private final int age;
+ private final int age;|\pause|
  public Person(String name, int age) {
   this.name = name;
   this.age = age;
- }
+ }|\pause|
  public String getName() {
   return name;
  }
  public int getAge() {
   return age;
- }
+ }|\pause|
  public boolean equals(Object other) {
   ...
- }
+ }|\pause|
  public int hashCode() {
   ...
- }
+ }|\pause|
  public String toString() {
   ...
  }
@@ -447,16 +489,16 @@ public class Person {
 \begin{center}
   Kotlin
 \end{center}
-\begin{lstlisting}[style=twosided]
-data class Person(
+\begin{lstlisting}[style=twosided]|\pause|
+data class Person|\pause|(
  val name: String,
  val age: Int
-)
+)|\pause|
 
-// same as with lombok but better ;)
+// same as with lombok but better ;)|\pause|
 
 // primary ctor deals with getters
-// and field initialisation
+// and field initialisation|\pause|
 
 // generates equals/hashCode/toString
 // and a copy function (no builders!)
@@ -470,29 +512,33 @@ data class Person(
 
 
 \frame{\frametitle{Collection API}
-\begin{itemize}
-	\item Collections designed properly! (im/mutability as in Scala)
+\begin{itemize}[<+->]
+	\item Collections designed properly! (\textbf{im/mutability} as in Scala)
 	\item Create a map: \texttt{mapOf("a" to 1, "b" to 2)}
 	\item Access a map: \texttt{map["a"]}
-	\item Many useful (functional) extension methods \ldots
+	\item \texttt{size} property for collections and arrays
+	\item Many, many useful (functional) \textbf{extension} methods \ldots
+	\begin{itemize}
+		\item Guava R.I.P., you served well
+	\end{itemize}
 \end{itemize}
 }
 
-\begin{frame}[fragile] \frametitle{Collection API Samples}
+\begin{frame}[fragile] \frametitle{Collection API -- Samples}
+\pause
 \begin{lstlisting}
 // val list = listOf(1, 2, 3)
-val list = mutableListOf(1, 2, 3)
-list.add(42) // would not compile!
-list.requireNoNulls()
-list.first() // => 1
-list.firstOrNull { it > 10 } ?: -1
+val list = mutableListOf(1, 2, 3)|\pause|
+list.add(42) // would not compile!|\pause|
+list.requireNoNulls()|\pause|
+list.first() // => 1|\pause|
+list.firstOrNull { it > 10 } ?: -1|\pause|
 if (list.none { it > 10 })
-  println("no big ones")
-list.toList() // returns immutable copy
+  println("no big ones")|\pause|
+list.toList() // returns immutable copy|\pause|
 
 mapOf(1 to "a", 2 to "b", 3 to "a")
   .values.distinct().toHashSet()
-
 \end{lstlisting}
 \end{frame}
 
@@ -508,6 +554,7 @@ mapOf(1 to "a", 2 to "b", 3 to "a")
 	\item Operator overloading
 	\item \texttt{if}, \texttt{try} and \texttt{when} as expressions
 	\item == as equals
+	\item Range expressions
 	\item Rename imports
 	\item Backticks for escaping
 	\item \ldots and much much more \ldots

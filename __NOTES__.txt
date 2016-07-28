@@ -1,19 +1,9 @@
 
-* use some memes ;)
-    * the typical b/w guys
-    * cats on the final slide
-
 * fragen stellen:
     * wer kennt kotlin? wer schon mal verwendet?
     * selbe fuer: scala, ceylon, C#, haskell&co?
 
-TODO
-=========================
-* MINOR: animation in listings: http://tex.stackexchange.com/questions/8384/how-to-make-overlay-still-work-inside-lstlisting-environment
-@SIT: java + kotlin mixen anhand von ebv projekt. bissi test, bzw auch ganze resource schreiben und mit java callen und vice versa
-  - demo mit intellij UND mit eclipse plugin!
-
-sIT requirements:
+some requirements:
 =========================
 * Language fundamentals and concepts
 * Historic abstract

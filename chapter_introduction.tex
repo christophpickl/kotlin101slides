@@ -4,7 +4,7 @@
 \sektion{Introduction}
 
 \frame{\frametitle{Language fundamentals} 
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item Statically typed, \textbf{hybrid} programming language for the \textbf{JVM}
     \item Fully \textbf{interoperable} with Java
     \item Runs on \textbf{Android} (generates 1.6 bytecode)
@@ -15,9 +15,11 @@
 }
 
 \frame{\frametitle{Historic abstract} 
-  \begin{itemize}
-    \item Developed by \textbf{JetBrains} (IntelliJ, ReSharper, \ldots)
+  \begin{itemize}[<+->]
+    \item Developed by \textbf{JetBrains} (IntelliJ, ReSharper, WebStorm, \ldots)
     \item Development already started \textbf{2010}
+    \item Since then used in \textbf{projects} at JetBrains, Prezi and Expedia
+    \item 2M+ LoC and 100+ contributers at \textbf{GitHub}
     \item \href{https://blog.jetbrains.com/kotlin/2016/02/kotlin-1-0-released-pragmatic-language-for-jvm-and-android/}{Version 1.0} released February, 2016
   \end{itemize}
 
@@ -33,6 +35,7 @@
 
 
 \frame{\frametitle{Yet another JVM language?}
+\pause
 \begin{figure}[h]
   \centering
   \includegraphics[width=10cm]{jvm_languages}
@@ -42,7 +45,8 @@
 }
 
 \frame{\frametitle{Java is dead, long live Java}
-\quotes{Most people talk about Java the language, and this may sound odd coming from me, but I could hardly care less. \\ At the core of the Java ecosystem is the JVM.}
+\pause
+\quotes{Most people talk about Java the language, and this may sound odd coming from me, but I could hardly care less. \\ At the core of the Java ecosystem is the JVM.}\pause
 \textbf{\small{James Gosling,}}\\
 \textbf{\tiny{Creator of the Java Programming Language (2011, TheServerSide)}}
 }
@@ -50,11 +54,17 @@
 \fullimage{java_no_cool}
 
 \frame{\frametitle{Yet another JVM language!}
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item Well known company with good \textbf{tooling} support
-    \item It has nothing new, just the \textbf{best of all} of them
-    \item It's about the \textbf{ecosystem}, not the language (\href{http://sns.cs.princeton.edu/docs/asr-oopsla13.pdf}{source})
-    \item It's really really easy to \textbf{learn}
-    \item ``\textit{Scala for the \sout{dummies} masses}''
+    \item It got nothing new, just the \textbf{best of all} of them
+    \item It's about the \textbf{ecosystem}, not the language
+    \begin{itemize}
+       \item \textit{Empirical Analysis of Programming Language Adoption} (\href{http://sns.cs.princeton.edu/docs/asr-oopsla13.pdf}{PDF})
+    \end{itemize}
+    \item It's really, really easy to \textbf{learn}
+    \begin{itemize}
+        \item ``\textit{Scala for \sout{dummies} the masses}''
+    \end{itemize}
+
   \end{itemize}
 }
