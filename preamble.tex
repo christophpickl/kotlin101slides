@@ -6,7 +6,7 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{hyperref}
-
+\usepackage{xifthen}
 \usepackage{graphicx}
 \graphicspath{ {images/} }
 \usepackage{setspace}
@@ -79,12 +79,13 @@
 \end{withoutheadline}
 }
 
-\newcommand{\fullimageCapt}[2]{
+\newcommand{\fullimageCapt}[3]{
 \begin{withoutheadline}
 \frame{
 \begin{figure}[h]
   \centering
-  \includegraphics[width=10cm]{#1}
+  \ifthenelse{\equal{#3}{}}{\includegraphics[width=10cm]{#1}}{\includegraphics[width=#3]{#1}}
+%\includegraphics[width=10cm]{#1}
   \caption{#2}
 \end{figure}
 }
