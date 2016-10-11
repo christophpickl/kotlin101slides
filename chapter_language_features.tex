@@ -49,7 +49,7 @@ fun add2(x: Int, y: Int) = x + y|\pause|
 // possiblity to mark it as infix function
 infix fun Int.add3(y: Int) = this + y
 // enables us to write:
-20.add3(22)
+20 add3 22
 \end{lstlisting}
 \end{frame}
 
@@ -63,7 +63,7 @@ class Greeter(private val prefix: String) {|\pause|
 
   // string interpolation, no concatenation
   fun greet(name: String) =
-    "$prefix ${name}!"
+    "$prefix $name!"
 }
 \end{lstlisting}
 \end{frame}
@@ -102,7 +102,7 @@ fun main(args: Array<String>) {|\pause|
   val greeter = Greeter("Hello")|\pause|
 
   // no 'System.out' reference necessary
-  println(greeter.greet("sIT"))
+  println(greeter.greet("JSUG"))
 }
 \end{lstlisting}
 \end{frame}
@@ -343,9 +343,9 @@ fun greet(|\pause|
     prefix: String = "Hello")|\pause|
   = "$prefix, ${name}!"|\pause|
 
-greet("sIT", "Hi") => "Hi, sIT!"|\pause|
+greet("JSUG", "Hi") => "Hi, JSUG!"|\pause|
 
-greet("sIT") // => "Hello, sIT!"
+greet("JSUG") // => "Hello, JSUG!"
 \end{lstlisting}
 
 No more overloaded methods and delegation necessary!
@@ -364,7 +364,7 @@ fun greet(
 
 // specify the argument name and
 // skip the "prefix" param (use default)
-greet(name = "sIT", suffix = ".")
+greet(name = "JSUG", suffix = ".")
 \end{lstlisting}
 \end{frame}
 
@@ -456,7 +456,7 @@ list.first() // => 1|\pause|
 list.firstOrNull { it > 10 } ?: -1|\pause|
 if (list.none { it > 10 })
   println("no big ones")|\pause|
-list.toList() // returns immutable copy|\pause|
+list.toTypedArray()|\pause|
 
 mapOf(1 to "a", 2 to "b", 3 to "a")
   .values.distinct().toHashSet()
