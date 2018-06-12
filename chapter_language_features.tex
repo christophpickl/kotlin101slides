@@ -9,7 +9,7 @@
 	\item Smart casts
 	\item Properties
 	\item Extension methods
-	\item  Named \& default arguments
+	\item Arguments
 	\item Data classes
 	\item Collection API
 \end{enumerate}
@@ -43,12 +43,13 @@ fun add1(x: Int, y: Int): Int {
   return x + y
 }|\pause|
 
-// compact one-line syntax
+// compact single expression syntax
 fun add2(x: Int, y: Int) = x + y|\pause|
 
 // possiblity to mark it as infix function
 infix fun Int.add3(y: Int) = this + y
-// enables us to write:
+
+// enables you to write:
 20 add3 22
 \end{lstlisting}
 \end{frame}
@@ -102,7 +103,7 @@ fun main(args: Array<String>) {|\pause|
   val greeter = Greeter("Hello")|\pause|
 
   // no 'System.out' reference necessary
-  println(greeter.greet("JSUG"))
+  println(greeter.greet("ERSTE"))
 }
 \end{lstlisting}
 \end{frame}
@@ -182,7 +183,7 @@ if (maybe != null) {
   Java
 \end{center}
 \begin{lstlisting}[style=twosided]
-Object x = ...;|\pause|
+final Object x = ...;|\pause|
 if (x instanceof A) {
   a = (A) x;
   a.foo();|\pause|
@@ -343,9 +344,9 @@ fun greet(|\pause|
     prefix: String = "Hello")|\pause|
   = "$prefix, ${name}!"|\pause|
 
-greet("JSUG", "Hi") => "Hi, JSUG!"|\pause|
+greet("ERSTE", "Hi") => "Hi, ERSTE!"|\pause|
 
-greet("JSUG") // => "Hello, JSUG!"
+greet("ERSTE") // => "Hello, ERSTE!"
 \end{lstlisting}
 
 No more overloaded methods and delegation necessary!
@@ -364,7 +365,7 @@ fun greet(
 
 // specify the argument name and
 // skip the "prefix" param (use default)
-greet(name = "JSUG", suffix = ".")
+greet(name = "ERSTE", suffix = ".")
 \end{lstlisting}
 \end{frame}
 
@@ -441,6 +442,7 @@ data class Person|\pause|(
 	\item Many, many useful (functional) \textbf{extension} methods \ldots
 	\begin{itemize}
 		\item Guava R.I.P., you served well
+		\item And so did Lombok
 	\end{itemize}
 \end{itemize}
 }
@@ -467,14 +469,14 @@ mapOf(1 to "a", 2 to "b", 3 to "a")
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Further Features}
 \begin{itemize}
-	\item Delegation
-	\item String handling
-	\item Sealed classes
-	\item Pattern matching
-	\item Reified generics
-	\item Operator overloading
+	\item Delegation (lazy)
+	\item String handling (lots of extension functions)
+	\item Sealed classes (algebraic datastructures anyone?)
+	\item Pattern matching (or something like it)
+	\item Reified generics (fake it until you make it)
+	\item Operator overloading (to some extent, at least for BigOnes)
 	\item \texttt{if}, \texttt{try} and \texttt{when} as expressions
-	\item == as equals
+	\item == as equals (for improved readability)
 	\item Range expressions
 	\item Rename imports
 	\item Backticks for escaping
