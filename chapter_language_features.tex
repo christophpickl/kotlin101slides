@@ -130,11 +130,13 @@ listOf(1, 2, 3).filter { it % 2 == 0 }
 \begin{frame}[fragile] \frametitle{Map function}
 \pause
 \begin{lstlisting}
-fun <T, R> map(list: List<T>,|\pause|
-    transform: (T) -> R): List<R> {|\pause|
+fun <T, R> map(|\pause|
+    list: List<T>,|\pause|
+    transformer: (T) -> R|\pause|
+  ): List<R> {|\pause|
   val result = arrayListOf<R>()
   for (item in list)
-    result.add(transform(item))
+    result.add(transformer(item))
   return result
 }|\pause|
 
@@ -166,7 +168,7 @@ maybe?.length ?: -1 // type is Int|\pause|
 maybe!!.length // i dont f*cking care!|\pause|
 
 if (maybe != null) {
-  maybe.length // smart cast to String
+  maybe.length // implicit smart cast
 }
 \end{lstlisting}
 \end{frame}
@@ -185,11 +187,11 @@ if (maybe != null) {
 \begin{lstlisting}[style=twosided]
 final Object x = ...;|\pause|
 if (x instanceof A) {
-  a = (A) x;
-  a.foo();|\pause|
+  A a = (A) x;
+  a.specificToA();|\pause|
 } else if (x instanceof B) {
   B b = (B) x;
-  b.bar();|\pause|
+  b.specificToB();|\pause|
 } else {
   throw new Exception("Sad panda!");
 }|\pause|
@@ -202,8 +204,8 @@ if (x instanceof A) {
 \begin{lstlisting}[style=twosided]
 val x: Any = ...|\pause|
 when (x) {
-  is A -> x.foo()|\pause|
-  is B -> x.bar()|\pause|
+  is A -> x.specificToA()|\pause|
+  is B -> x.specificToB()|\pause|
   else -> throw Exception("Sad panda!")
   // there are no checked exceptions :)
 }
@@ -244,13 +246,13 @@ public class Account {|\pause|
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile] \frametitle{Pojo with Properties}
+\begin{frame}[fragile] \frametitle{Same pojo but with properties}
 \pause
 \begin{lstlisting}
-class Account|\pause| {
-  var id: String? = null
-  var amount: Int = 0
-}|\pause|
+class Account|\pause|(
+  var id: String?,
+  var amount: Int
+)|\pause|
 
 // usage sample:
 val account = Account()
@@ -268,21 +270,10 @@ class Account|\pause| {
     set(value) {|\pause|
       if (value < 0) throw SomeException()
         field = value
-    }
+    }|\pause|
+    var id: String? = null
     // ...
 }
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile] \frametitle{Compact Properties}
-\pause
-\begin{lstlisting}
-// primary ctor initializing properties
-class Account|\pause|(
-  var id: String,
-  var amount: Int
-)
-// no need for curly braces
 \end{lstlisting}
 \end{frame}
 
@@ -306,10 +297,11 @@ How many Util classes are out there? A gazillion maybe?!
 \begin{frame}[fragile] \frametitle{Extension methods -- The Solution}
 \pause
 \begin{lstlisting}
-fun String.pad|\pause|(length: Int,
-    symbol: String): String {
-  // "this" refers to current string
-  ...
+fun String.pad(|\pause|
+    length: Int,
+    symbol: String
+  ): String {
+  // "this" refers to current string ...
 }|\pause|
 
 val agent = "7"
@@ -342,7 +334,7 @@ fun Money?.toDTO() =
 fun greet(|\pause|
     name: String,|\pause|
     prefix: String = "Hello")|\pause|
-  = "$prefix, ${name}!"|\pause|
+  = "$prefix, $name!"|\pause|
 
 greet("ERSTE", "Hi") => "Hi, ERSTE!"|\pause|
 
@@ -361,7 +353,7 @@ fun greet(
     name: String,
     prefix: String = "Hello",
     suffix: String = "!")
-  { ... }|\pause|
+  = "$prefix, $name$suffix"|\pause|
 
 // specify the argument name and
 // skip the "prefix" param (use default)
